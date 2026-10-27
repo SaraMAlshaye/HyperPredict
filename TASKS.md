@@ -1,6 +1,6 @@
 # HyperPredict — Team Task Tracker
 
-This is the initial task plan for the NHANES dataset review. Owners are assigned by team nickname for now; add the correct GitHub usernames when confirmed. Update status only when there is evidence/output to review.
+This is the initial task plan for the NHANES dataset review. Task owners are identified by their GitHub usernames where applicable. Update status only when there is evidence/output to review.
 
 **Statuses:** Todo · In Progress · Review · Done
 
@@ -8,20 +8,20 @@ This is the initial task plan for the NHANES dataset review. Owners are assigned
 
 | ID | Task | Owner | Status | Deliverable / acceptance check |
 |---|---|---|---|---|
-| HP-01 | Read the NHANES cycle documentation and confirm candidate files | Sara Alshaye | In Progress | Notes include cycle, source links, variable names, units, and limitations |
-| HP-02 | Verify whether SpO₂ is available in the same cycle; do not assume it is | Measho | Todo | Documented yes/no/uncertain result with official source |
-| HP-03 | Download candidate files locally and inspect columns, row counts, and SEQN uniqueness | Soso | Todo | Data inventory; no raw data committed to GitHub |
-| HP-04 | Define the proposed prediction target and identify possible target leakage | Sara Alshaye + Measho | Todo | Written target definition and list of features to exclude/test |
-| HP-05 | Merge selected files using SEQN and report row counts/missingness after merge | Measho + Soso | Todo | Reproducible script and summary table |
-| HP-06 | Create initial EDA charts and a short findings note | Sara Alshaye | Todo | At least target/measurement distributions where valid, missingness summary, limitations |
-| HP-07 | Update README and keep this tracker current | Sara Alshaye | In Progress | Source and dataset status documented; tasks have owners/status |
+| HP-01 | Read the NHANES cycle documentation and confirm candidate files | @SaraMAlshaye | In Progress | Notes include cycle, source links, variable names, units, and limitations |
+| HP-02 | Verify whether SpO₂ is available in the same cycle; do not assume it is | @mashaelalmojally | Todo | Documented yes/no/uncertain result with official source |
+| HP-03 | Download candidate files locally and inspect columns, row counts, and SEQN uniqueness | @saaraaldayel | Todo | Data inventory; no raw data committed to GitHub |
+| HP-04 | Define the proposed prediction target and identify possible target leakage | @SaraMAlshaye + @mashaelalmojally | Todo | Written target definition and list of features to exclude/test |
+| HP-05 | Merge selected files using SEQN and report row counts/missingness after merge | @mashaelalmojally + @saaraaldayel | Todo | Reproducible script and summary table |
+| HP-06 | Create initial EDA charts and a short findings note | @SaraMAlshaye | Todo | At least target/measurement distributions where valid, missingness summary, limitations |
+| HP-07 | Update README and keep this tracker current | @SaraMAlshaye | In Progress | Source and dataset status documented; tasks have owners/status |
 | HP-08 | Prepare a brief progress summary for the instructor | All team members | Todo | Explain dataset choice, validation still needed, work completed, and next steps |
 
 ## Workstream ownership (provisional)
 
-- **Sara Alshaye — Data audit & documentation:** source documentation, data inventory, data-quality report, and README.
-- **Measho — Dataset validation & preparation:** variable availability, merge plan, missing-data checks, and reproducible preprocessing.
-- **Soso — Exploratory analysis & prototype readiness:** initial EDA outputs, charts, and documenting what the future app needs from a trained model.
+- **@SaraMAlshaye — Data audit & documentation:** source documentation, data inventory, data-quality report, and README.
+- **@mashaelalmojally — Dataset validation & preparation:** variable availability, merge plan, missing-data checks, and reproducible preprocessing.
+- **@saaraaldayel — Exploratory analysis & prototype readiness:** initial EDA outputs, charts, and documenting what the future app needs from a trained model.
 
 These workstreams are provisional and should be balanced after the first data inventory. All members should review the target definition and leakage risk together.
 
