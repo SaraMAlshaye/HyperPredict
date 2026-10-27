@@ -218,3 +218,13 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+
+# HyperPredict local data and generated artifacts
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+machine_learning/models/*.joblib
+machine_learning/models/feature_schema.json
+results/figures/*.png
