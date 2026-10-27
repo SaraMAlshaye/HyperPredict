@@ -75,8 +75,8 @@ Python, pandas, NumPy, scikit-learn, Matplotlib, seaborn, joblib, and Streamlit.
 ## Team
 Three team members:
 - **Sara Alshaye** — [@SaraMAlshaye](https://github.com/SaraMAlshaye)
-- **Mashael (Measho)** — [@mashaelalmojally](https://github.com/mashaelalmojally)
-- **Sara (Soso)** — [@saaraaldayel](https://github.com/saaraaldayel)
+- **Mashael Almojally** — [@mashaelalmojally](https://github.com/mashaelalmojally)
+- **Sara Aldayel** — [@saaraaldayel](https://github.com/saaraaldayel)
 
 ## Disclaimer
 This software is an educational prototype. It has not been clinically validated, and no prediction should replace assessment by a qualified healthcare professional.
