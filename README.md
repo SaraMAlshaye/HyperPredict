@@ -59,7 +59,7 @@ The scripts stop with a clear message when the expected dataset or trained model
 Python, pandas, NumPy, scikit-learn, Matplotlib, seaborn, joblib, and Streamlit. The optional IoT demo may use an ESP32/Arduino board with a MAX30102 sensor.
 
 ## Team
-Academic team project for CSC 418 — Machine Learning.
+This project is being developed collaboratively by three team members: **Sara Alshaye, Mashael, and Sara**. The team is working on the dataset analysis, machine-learning workflow, evaluation, and educational Streamlit prototype as part of CSC 418 — Machine Learning.
 
 ## Disclaimer
 This software is an educational prototype. It has not been clinically validated, and no prediction should replace assessment by a qualified healthcare professional.
