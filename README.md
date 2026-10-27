@@ -73,7 +73,7 @@ Run scripts only after checking their expected paths and column names. The datas
 Python, pandas, NumPy, scikit-learn, Matplotlib, seaborn, joblib, and Streamlit. The optional IoT demonstration may use an ESP32/Arduino board with a MAX30102 sensor.
 
 ## Team
-Three team members: **Sara Alshaye, Mashael (Measho), and Sara (Soso)**. Please update the display names or add GitHub usernames once the team confirms the exact accounts.
+Three team members: **Sara, Measho, and Soso**. Add each member's GitHub username once the team confirms the exact accounts.
 
 ## Disclaimer
 This software is an educational prototype. It has not been clinically validated, and no prediction should replace assessment by a qualified healthcare professional.
