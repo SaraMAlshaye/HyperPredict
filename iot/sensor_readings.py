@@ -1,8 +1,9 @@
 """Placeholder for optional serial sensor integration.
 
-Do not connect this demo to the ML predictor: the current training dataset does not
-include pulse or SpO2 features. Implement only after documenting your sensor output
-format, hardware setup, and safety limitations.
+Do not connect this demo to the ML predictor. The training data (NHANES 2021-2023) has
+no SpO2, and its pulse feature comes from a blood-pressure cuff, not a fingertip sensor
+(see docs/DATASET.md). Implement only after documenting your sensor output format,
+hardware setup, and safety limitations.
 """
 
 

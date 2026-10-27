@@ -1,9 +1,9 @@
 # HyperPredict
 ## Hypertension Risk Prediction Using Machine Learning
 
-HyperPredict is an academic machine-learning project exploring hypertension-risk classification using health survey data. The team is evaluating the U.S. CDC National Health and Nutrition Examination Survey (NHANES) as a candidate source because it includes measured blood pressure and pulse data in selected cycles.
+HyperPredict is an academic machine-learning project exploring hypertension-risk classification using health survey data from the U.S. CDC National Health and Nutrition Examination Survey (NHANES), cycle August 2021 – August 2023.
 
-> **Dataset status:** NHANES is a candidate source, not yet the finalized dataset. The team must verify the selected cycle, required variables, availability of oxygen saturation (SpO₂), sample size after merging files, and the definition of the prediction target before model training.
+> **Dataset status:** The data-preparation pipeline is implemented and validated (31/31 checks pass). It produces 6,081 adults with a CDC-defined hypertension target, 3,242 positive and 2,839 negative. **SpO₂ is not available in NHANES 2021–2023 and is not a model input.** Full details, decisions and limitations: [docs/DATASET.md](docs/DATASET.md). Awaiting team/instructor review before model training.
 
 > **Academic prototype only:** This project is not a medical device and must not be used for diagnosis, treatment, or personal medical decisions. Predictions are experimental and depend on data quality and target definition.
 
@@ -15,21 +15,37 @@ HyperPredict is an academic machine-learning project exploring hypertension-risk
 - Provide an educational Streamlit interface for model outputs.
 - Explore an optional sensor demonstration for pulse and SpO₂, keeping sensor readings separate from model inputs unless suitable training data is available.
 
-## Candidate dataset: NHANES
-Official source: https://wwwn.cdc.gov/nchs/nhanes/
+## Dataset: NHANES August 2021 – August 2023
+Official source: https://wwwn.cdc.gov/nchs/nhanes/continuousnhanes/default.aspx?Cycle=2021-2023
 
-The 2021–2023 blood pressure and pulse file (BPXO_L) is an initial candidate:
-https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2021/DataFiles/BPXO_L.htm
+**Files:**
+- DEMO_L: demographics
+- BPXO_L: blood pressure and cuff pulse
+- BPQ_L: BP questionnaire
+- BMX_L: body measures
 
-Before adoption, the team must:
-1. Verify all required variables and their units in the selected cycle.
-2. Confirm whether a suitable SpO₂ variable is available in that same cycle. Do not assume it is available.
-3. Identify the participant identifier (SEQN) and merge related files carefully.
-4. Document inclusion/exclusion criteria and missing-data handling.
-5. Define the target variable and check for target leakage. If hypertension labels are derived from systolic/diastolic blood-pressure thresholds, using those same measurements as predictors may inflate performance.
-6. Review NHANES documentation, survey design considerations, and any applicable data-use requirements.
+The files are merged on `SEQN`.
 
-Do not commit downloaded raw datasets or other large/generated files unless the team has confirmed that this is appropriate. Keep raw and processed data local by default and document how to obtain the source files.
+**Target:** `Hypertension_Status` = 1 if mean BP ≥ 130/80 mmHg or the person takes prescribed BP medication, else 0. This reproduces NCHS Data Brief 511.
+
+**Features:**
+- Age_Years
+- Sex
+- Race_Ethnicity
+- BMI
+- Waist_Circumference_cm
+- Pulse_BPM
+- Poverty_Income_Ratio
+
+Blood-pressure readings and questionnaire answers define the target, so they are **excluded from the predictors** to prevent leakage.
+
+See [docs/DATASET.md](docs/DATASET.md) for:
+- merge strategy
+- exclusions and row counts
+- EDA findings
+- limitations
+
+Raw and processed data stay local (gitignored). Anyone can regenerate them from the official CDC files with the pipeline below.
 
 ## Repository structure
 ```text
@@ -42,6 +58,7 @@ HyperPredict/
 ├── machine_learning/       # Training and evaluation scripts
 ├── iot/                    # Optional sensor demonstration
 ├── results/figures/        # Generated charts; commit selected report-ready figures only
+├── results/reports/        # Generated pipeline reports (aggregate statistics only)
 ├── docs/                   # Dataset notes and project documentation
 ├── TASKS.md                # Team task tracker
 ├── requirements.txt
@@ -61,7 +78,16 @@ Windows PowerShell:
 pip install -r requirements.txt
 ```
 
-Run scripts only after checking their expected paths and column names. The dataset and final target schema have not yet been finalized, so training commands may need updating after the dataset audit.
+Build the dataset (downloads the CDC files, merges, cleans, runs EDA and validation):
+```bash
+python data_analysis/run_pipeline.py
+```
+Outputs:
+- `data/processed/hypertension_clean.csv`: the model-ready file
+- `results/figures/`: EDA charts
+- `results/reports/`: merge, cleaning, EDA and validation reports
+
+Model training (`machine_learning/evaluate.py`, then `machine_learning/train.py`) is the next stage. Do not run it until the dataset has been reviewed.
 
 ## Team workflow
 - Track ownership, status, and deliverables in [TASKS.md](TASKS.md).

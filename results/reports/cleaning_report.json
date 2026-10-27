@@ -1,0 +1,175 @@
+{
+  "plausibility_rules": {
+    "BPXOSY1": {
+      "bounds": [
+        60,
+        270
+      ],
+      "values_set_to_missing": 0
+    },
+    "BPXOSY2": {
+      "bounds": [
+        60,
+        270
+      ],
+      "values_set_to_missing": 0
+    },
+    "BPXOSY3": {
+      "bounds": [
+        60,
+        270
+      ],
+      "values_set_to_missing": 0
+    },
+    "BPXODI1": {
+      "bounds": [
+        30,
+        150
+      ],
+      "values_set_to_missing": 0
+    },
+    "BPXODI2": {
+      "bounds": [
+        30,
+        150
+      ],
+      "values_set_to_missing": 0
+    },
+    "BPXODI3": {
+      "bounds": [
+        30,
+        150
+      ],
+      "values_set_to_missing": 1
+    },
+    "BPXOPLS1": {
+      "bounds": [
+        30,
+        220
+      ],
+      "values_set_to_missing": 0
+    },
+    "BPXOPLS2": {
+      "bounds": [
+        30,
+        220
+      ],
+      "values_set_to_missing": 0
+    },
+    "BPXOPLS3": {
+      "bounds": [
+        30,
+        220
+      ],
+      "values_set_to_missing": 0
+    },
+    "BMXBMI": {
+      "bounds": [
+        10,
+        100
+      ],
+      "values_set_to_missing": 0
+    },
+    "BMXWAIST": {
+      "bounds": [
+        40,
+        200
+      ],
+      "values_set_to_missing": 0
+    },
+    "reading_1_DBP_ge_SBP": 0,
+    "reading_2_DBP_ge_SBP": 0,
+    "reading_3_DBP_ge_SBP": 0
+  },
+  "nchs_vs_project_label_difference": 3,
+  "duplicate_SEQN": 0,
+  "identical_feature_and_target_rows": 0,
+  "iqr_outliers_retained": {
+    "Age_Years": {
+      "iqr_low": -9.5,
+      "iqr_high": 114.5,
+      "n_outside": 0,
+      "min": 18.0,
+      "max": 80.0
+    },
+    "BMI": {
+      "iqr_low": 11.3,
+      "iqr_high": 46.5,
+      "n_outside": 167,
+      "min": 11.1,
+      "max": 68.9
+    },
+    "Waist_Circumference_cm": {
+      "iqr_low": 53.9,
+      "iqr_high": 145.1,
+      "n_outside": 69,
+      "min": 59.6,
+      "max": 187.0
+    },
+    "Pulse_BPM": {
+      "iqr_low": 39.5,
+      "iqr_high": 102.17,
+      "n_outside": 85,
+      "min": 34.0,
+      "max": 129.33333333333334
+    },
+    "Poverty_Income_Ratio": {
+      "iqr_low": -3.99,
+      "iqr_high": 10.4,
+      "n_outside": 0,
+      "min": 0.0,
+      "max": 5.0
+    }
+  },
+  "feature_missing_counts": {
+    "Age_Years": 0,
+    "BMI": 62,
+    "Waist_Circumference_cm": 201,
+    "Pulse_BPM": 0,
+    "Poverty_Income_Ratio": 787,
+    "Sex": 0,
+    "Race_Ethnicity": 0
+  },
+  "class_counts": {
+    "0": 2839,
+    "1": 3242
+  },
+  "prevalence_unweighted": 0.5331,
+  "prevalence_weighted_WTMEC2YR": 0.477,
+  "reference_NCHS_DB511": {
+    "n_adults": 6084,
+    "weighted_prevalence": 0.477
+  },
+  "row_log": [
+    {
+      "step": "Merged NHANES participants",
+      "rows": 11933,
+      "removed": 0
+    },
+    {
+      "step": "Keep MEC-examined participants (RIDSTATR = 2)",
+      "rows": 8860,
+      "removed": 3073
+    },
+    {
+      "step": "Keep adults aged 18+",
+      "rows": 6337,
+      "removed": 2523
+    },
+    {
+      "step": "Exclude pregnant at exam (RIDEXPRG = 1)",
+      "rows": 6296,
+      "removed": 41
+    },
+    {
+      "step": "Keep participants with >=1 valid SBP and DBP reading",
+      "rows": 6084,
+      "removed": 212
+    },
+    {
+      "step": "Exclude normal BP with unknown medication status (label undeterminable)",
+      "rows": 6081,
+      "removed": 3
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+[
+  {
+    "step": "DEMO_L (master)",
+    "rows": 11933,
+    "matched": 11933
+  },
+  {
+    "step": "+ BPXO_L (left join)",
+    "rows": 11933,
+    "matched": 7801
+  },
+  {
+    "step": "+ BPQ_L (left join)",
+    "rows": 11933,
+    "matched": 8501
+  },
+  {
+    "step": "+ BMX_L (left join)",
+    "rows": 11933,
+    "matched": 8860
+  }
+]

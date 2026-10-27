@@ -8,14 +8,25 @@ This is the initial task plan for the NHANES dataset review. Task owners are ide
 
 | ID | Task | Owner | Status | Deliverable / acceptance check |
 |---|---|---|---|---|
-| HP-01 | Read the NHANES cycle documentation and confirm candidate files | @SaraMAlshaye | In Progress | Notes include cycle, source links, variable names, units, and limitations |
-| HP-02 | Verify whether SpO₂ is available in the same cycle; do not assume it is | @mashaelalmojally | Todo | Documented yes/no/uncertain result with official source |
-| HP-03 | Download candidate files locally and inspect columns, row counts, and SEQN uniqueness | @saaraaldayel | Todo | Data inventory; no raw data committed to GitHub |
-| HP-04 | Define the proposed prediction target and identify possible target leakage | @SaraMAlshaye + @mashaelalmojally | Todo | Written target definition and list of features to exclude/test |
-| HP-05 | Merge selected files using SEQN and report row counts/missingness after merge | @mashaelalmojally + @saaraaldayel | Todo | Reproducible script and summary table |
-| HP-06 | Create initial EDA charts and a short findings note | @SaraMAlshaye | Todo | At least target/measurement distributions where valid, missingness summary, limitations |
-| HP-07 | Update README and keep this tracker current | @SaraMAlshaye | In Progress | Source and dataset status documented; tasks have owners/status |
+| HP-01 | Read the NHANES cycle documentation and confirm candidate files | @SaraMAlshaye | Review | Notes include cycle, source links, variable names, units, and limitations |
+| HP-02 | Verify whether SpO₂ is available in the same cycle; do not assume it is | @mashaelalmojally | Review | Documented yes/no/uncertain result with official source |
+| HP-03 | Download candidate files locally and inspect columns, row counts, and SEQN uniqueness | @saaraaldayel | Review | Data inventory; no raw data committed to GitHub |
+| HP-04 | Define the proposed prediction target and identify possible target leakage | @SaraMAlshaye + @mashaelalmojally | Review | Written target definition and list of features to exclude/test |
+| HP-05 | Merge selected files using SEQN and report row counts/missingness after merge | @mashaelalmojally + @saaraaldayel | Review | Reproducible script and summary table |
+| HP-06 | Create initial EDA charts and a short findings note | @SaraMAlshaye | Review | At least target/measurement distributions where valid, missingness summary, limitations |
+| HP-07 | Update README and keep this tracker current | @SaraMAlshaye | Review | Source and dataset status documented; tasks have owners/status |
 | HP-08 | Prepare a brief progress summary for the instructor | All team members | Todo | Explain dataset choice, validation still needed, work completed, and next steps |
+
+### Pipeline evidence for review (all in docs/DATASET.md)
+
+- HP-01: sources, files, variables and units are documented in docs/DATASET.md §1.
+- HP-02: SpO2 result is **No**. No NHANES 2021–2023 exam file contains it. Pulse comes from the BP cuff.
+- HP-03: data_analysis/download_nhanes.py downloads the files. Row counts match the codebooks and there are 0 duplicate SEQN values.
+- HP-04: target is the NCHS Data Brief 511 definition (BP ≥130/80 or BP medication). The leakage exclusion list is in §5.
+- HP-05: data_analysis/merge_nhanes.py merges the files and writes the row log to results/reports/merge_log.json.
+- HP-06: data_analysis/eda.py produces 8 figures and results/reports/eda_summary.md.
+
+Each item moves to Done after another team member checks it.
 
 ## Workstream ownership (provisional)
 

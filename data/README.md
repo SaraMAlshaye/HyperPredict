@@ -1,10 +1,16 @@
 # Dataset instructions
 
-1. Obtain the instructor-approved dataset and confirm its source, license, and target-label definition.
-2. Place the CSV at data/raw/hypertension.csv.
-3. Keep raw and processed datasets out of Git. The repository .gitignore excludes CSV files under these folders.
-4. The starter scripts expect a target column named Hypertension_Status. Update the scripts if your real column name differs.
+The dataset is built automatically from the official CDC NHANES August 2021 – August 2023 public files:
 
-Do not upload private, identifiable, restricted, or non-redistributable data. A dataset being downloadable does not automatically mean it may be redistributed.
+```bash
+python data_analysis/run_pipeline.py
+```
 
-Before modeling, verify whether the target labels were created from systolic/diastolic blood-pressure thresholds. If so, using those same measurements as predictors may leak the rule used to create the target and lead to misleading performance.
+| Folder | Contents | In Git? |
+|---|---|---|
+| `data/raw/` | `DEMO_L.xpt`, `BPXO_L.xpt`, `BPQ_L.xpt`, `BMX_L.xpt`, downloaded unchanged from CDC | No |
+| `data/processed/` | `nhanes_merged.csv`, `hypertension_analysis.csv` (audit/EDA, includes SEQN and BP), `hypertension_clean.csv` (model-ready: 7 features + `Hypertension_Status`) | No |
+
+The model scripts read only `hypertension_clean.csv`. It contains no identifiers, blood-pressure readings or questionnaire answers, because those define the target (see [docs/DATASET.md](../docs/DATASET.md)).
+
+Keep raw and processed data out of Git (enforced by `.gitignore`). NHANES public-use data must not be used to try to identify participants.

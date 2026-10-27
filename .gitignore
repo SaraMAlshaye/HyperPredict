@@ -228,3 +228,13 @@ data/processed/*
 machine_learning/models/*.joblib
 machine_learning/models/feature_schema.json
 results/figures/*.png
+
+# Publish the report-ready NHANES EDA charts (aggregate, public-use data only).
+!results/figures/target_distribution.png
+!results/figures/missing_values.png
+!results/figures/feature_distributions.png
+!results/figures/outlier_boxplots.png
+!results/figures/prevalence_by_group.png
+!results/figures/correlation_heatmap.png
+!results/figures/bp_target_definition.png
+!results/figures/measured_vs_diagnosed.png

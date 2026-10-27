@@ -3,56 +3,33 @@ from pathlib import Path
 import sys
 
 import matplotlib.pyplot as plt
-import pandas as pd
-from sklearn.compose import ColumnTransformer
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.impute import SimpleImputer
 from sklearn.metrics import (
     accuracy_score, classification_report, confusion_matrix,
     ConfusionMatrixDisplay,
 )
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import OneHotEncoder, StandardScaler
+
+from features import (
+    RANDOM_STATE, TEST_SIZE, build_preprocessor, load_features_and_target,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
-DATA_PATH = ROOT / "data" / "processed" / "hypertension_clean.csv"
 FIGURES_DIR = ROOT / "results" / "figures"
-TARGET_COLUMN = "Hypertension_Status"
-RANDOM_STATE = 42
-POTENTIAL_LEAKAGE_COLUMNS = {"Systolic_BP", "Diastolic_BP"}
 
 
 def main() -> None:
-    if not DATA_PATH.exists():
-        sys.exit("Cleaned dataset not found. Run data_analysis/preprocessing.py first.")
-
-    df = pd.read_csv(DATA_PATH).dropna(subset=[TARGET_COLUMN]).copy()
-    excluded = [c for c in POTENTIAL_LEAKAGE_COLUMNS if c in df.columns]
-    X = df.drop(columns=[TARGET_COLUMN, *excluded], errors="ignore")
-    y = df[TARGET_COLUMN].astype(str)
+    X, y = load_features_and_target()
     if y.nunique() < 2:
         sys.exit("Evaluation requires at least two target classes.")
 
+    # Split first; the preprocessor inside the Pipeline is fitted on X_train only.
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=RANDOM_STATE, stratify=y
+        X, y, test_size=TEST_SIZE, random_state=RANDOM_STATE, stratify=y
     )
-    numeric_columns = X.select_dtypes(include="number").columns.tolist()
-    categorical_columns = [c for c in X.columns if c not in numeric_columns]
-    transformers = []
-    if numeric_columns:
-        transformers.append(("numeric", Pipeline([
-            ("imputer", SimpleImputer(strategy="median")),
-            ("scaler", StandardScaler()),
-        ]), numeric_columns))
-    if categorical_columns:
-        transformers.append(("categorical", Pipeline([
-            ("imputer", SimpleImputer(strategy="most_frequent")),
-            ("onehot", OneHotEncoder(handle_unknown="ignore")),
-        ]), categorical_columns))
-
     model = Pipeline([
-        ("preprocessor", ColumnTransformer(transformers=transformers)),
+        ("preprocessor", build_preprocessor()),
         ("classifier", RandomForestClassifier(
             n_estimators=300, class_weight="balanced",
             random_state=RANDOM_STATE, n_jobs=-1
@@ -62,7 +39,7 @@ def main() -> None:
     predictions = model.predict(X_test)
 
     print(f"Test records: {len(y_test)}")
-    print(f"Potential leakage columns excluded: {excluded or 'none present'}")
+    print(f"Predictors: {X.columns.tolist()}")
     print(f"Accuracy: {accuracy_score(y_test, predictions):.4f}")
     print("\nClassification report:")
     print(classification_report(y_test, predictions, zero_division=0))

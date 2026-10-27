@@ -1,0 +1,161 @@
+{
+  "passed": 31,
+  "failed": 0,
+  "checks": [
+    {
+      "check": "raw file DEMO_L.xpt present",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "raw file BPXO_L.xpt present",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "raw file BPQ_L.xpt present",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "raw file BMX_L.xpt present",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "output nhanes_merged.csv present",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "output hypertension_analysis.csv present",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "output hypertension_clean.csv present",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "merged file has one row per SEQN",
+      "passed": true,
+      "detail": "11,933 rows"
+    },
+    {
+      "check": "clean columns = features + target",
+      "passed": true,
+      "detail": "['Age_Years', 'BMI', 'Waist_Circumference_cm', 'Pulse_BPM', 'Poverty_Income_Ratio', 'Sex', 'Race_Ethnicity', 'Hypertension_Status']"
+    },
+    {
+      "check": "clean and analysis row counts match",
+      "passed": true,
+      "detail": "6,081"
+    },
+    {
+      "check": "no identifiers or leakage columns in model file",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "analysis SEQN unique",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "numeric features are numeric",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "categorical features are text",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "target has no missing values",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "target labels are exactly {0, 1}",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "each class has >= 100 rows",
+      "passed": true,
+      "detail": "{0: 2839, 1: 3242}"
+    },
+    {
+      "check": "age within adult range",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "no fully duplicated participant rows in analysis file",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "target matches definition (BP >=130/80 or BP medication)",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "every negative has known 'not on medication' status",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "survey-weighted prevalence close to NCHS DB511 (47.7%)",
+      "passed": true,
+      "detail": "47.7%"
+    },
+    {
+      "check": "Pulse_BPM within [30, 220]",
+      "passed": true,
+      "detail": "min 34.0, max 129.3, missing 0"
+    },
+    {
+      "check": "BMI within [10, 100]",
+      "passed": true,
+      "detail": "min 11.1, max 68.9, missing 62"
+    },
+    {
+      "check": "Waist_Circumference_cm within [40, 200]",
+      "passed": true,
+      "detail": "min 59.6, max 187.0, missing 201"
+    },
+    {
+      "check": "Poverty_Income_Ratio within [0, 5]",
+      "passed": true,
+      "detail": "min 0.0, max 5.0, missing 787"
+    },
+    {
+      "check": "preprocessor (fit on train only) leaves no NaN",
+      "passed": true,
+      "detail": "train (4864, 13), test (1217, 13)"
+    },
+    {
+      "check": "all EDA figures generated",
+      "passed": true,
+      "detail": "8/8"
+    },
+    {
+      "check": "report merge_log.json generated",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "report cleaning_report.json generated",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "report eda_summary.md generated",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}
