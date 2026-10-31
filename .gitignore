@@ -238,3 +238,41 @@ results/figures/*.png
 !results/figures/correlation_heatmap.png
 !results/figures/bp_target_definition.png
 !results/figures/measured_vs_diagnosed.png
+!results/figures/roc_curves.png
+!results/figures/confusion_matrices.png
+!results/figures/model_comparison.png
+!results/figures/confusion_matrix.png
+!results/figures/feature_importance.png
+!results/figures/threshold_tradeoff.png
+machine_learning/models/archive/
+
+# React web app (web/): dependencies and build output
+web/node_modules/
+web/dist/
+
+# The Python template's "lib/" rule above is for packaging folders; keep the web app's source.
+!web/src/lib/
+
+# Secrets and local environment files (never commit)
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+secrets.json
+credentials.json
+
+# Node / Vite
+node_modules/
+.vite/
+npm-debug.log*
+
+# Temporary and OS files
+*.tmp
+*.temp
+*.bak
+*.swp
+*~
+.DS_Store
+Thumbs.db
+desktop.ini

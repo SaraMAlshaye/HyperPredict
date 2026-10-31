@@ -29,7 +29,7 @@ KEEP_COLUMNS = {
     "BPXO_L": ["SEQN", "BPXOSY1", "BPXODI1", "BPXOSY2", "BPXODI2",
                "BPXOSY3", "BPXODI3", "BPXOPLS1", "BPXOPLS2", "BPXOPLS3"],
     "BPQ_L": ["SEQN", "BPQ020", "BPQ030", "BPQ150"],
-    "BMX_L": ["SEQN", "BMXWT", "BMXHT", "BMXBMI", "BMXWAIST"],
+    "BMX_L": ["SEQN", "BMXWT", "BMXHT", "BMXBMI"],
 }
 
 MERGED_PATH = PROCESSED_DIR / "nhanes_merged.csv"
@@ -49,11 +49,17 @@ SBP_RANGE = (60, 270)
 DBP_RANGE = (30, 150)
 PULSE_RANGE = (30, 220)
 BMI_RANGE = (10, 100)
-WAIST_RANGE = (40, 200)
 
 # Model inputs. Only demographics, body measures, and cuff pulse.
-NUMERIC_FEATURES = ["Age_Years", "BMI", "Waist_Circumference_cm",
-                    "Pulse_BPM", "Poverty_Income_Ratio"]
+NUMERIC_FEATURES = ["Age_Years", "BMI", "Pulse_BPM"]
+
+# Removed from the model on purpose (kept in hypertension_analysis.csv for auditing).
+# Evidence: machine_learning/check_income_ablation.py, docs/MODEL.md.
+DROPPED_FEATURES = {
+    "Poverty_Income_Ratio": "Removed from the app and model: dropping it changed training "
+                            "CV ROC-AUC by at most 0.0015 for every model, and the app "
+                            "should not ask users for family income.",
+}
 CATEGORICAL_FEATURES = ["Sex", "Race_Ethnicity"]
 FEATURE_COLUMNS = NUMERIC_FEATURES + CATEGORICAL_FEATURES
 

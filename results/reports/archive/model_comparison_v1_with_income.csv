@@ -1,0 +1,5 @@
+model,selected,best_params,cv_roc_auc_mean,cv_roc_auc_std,cv_recall_mean,cv_recall_std,cv_precision_mean,cv_precision_std,cv_f1_mean,cv_f1_std,cv_accuracy_mean,cv_accuracy_std,test_accuracy,test_precision,test_recall,test_specificity,test_f1,test_roc_auc,test_tn,test_fp,test_fn,test_tp
+Logistic Regression,True,"{""C"": 0.1}",0.7881,0.0159,0.7567,0.0194,0.7379,0.0115,0.7471,0.0136,0.727,0.0135,0.7239,0.736,0.7519,0.6919,0.7439,0.7947,393,175,161,488
+Decision Tree,False,"{""max_depth"": 6, ""min_samples_leaf"": 20}",0.764,0.0144,0.7458,0.0405,0.719,0.0166,0.7313,0.0173,0.7085,0.0133,0.7247,0.7275,0.7735,0.669,0.7498,0.778,380,188,147,502
+Random Forest,False,"{""max_depth"": null, ""min_samples_leaf"": 20}",0.788,0.0127,0.7771,0.016,0.7259,0.0141,0.7505,0.0106,0.7245,0.0123,0.7214,0.7286,0.7612,0.6761,0.7445,0.7912,384,184,155,494
+XGBoost,False,"{""learning_rate"": 0.03, ""max_depth"": 3}",0.7911,0.0142,0.8083,0.0163,0.7182,0.0121,0.7605,0.0107,0.7286,0.0122,0.7321,0.7209,0.812,0.6408,0.7638,0.7928,364,204,122,527

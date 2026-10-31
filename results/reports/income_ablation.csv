@@ -1,0 +1,5 @@
+model,cv_auc_with_income,cv_auc_without_income,difference,cv_sd_with_income
+Logistic Regression,0.7881,0.788,-0.0002,0.0159
+Decision Tree,0.764,0.7646,0.0005,0.0144
+Random Forest,0.788,0.7894,0.0014,0.0127
+XGBoost,0.7911,0.7915,0.0004,0.0142

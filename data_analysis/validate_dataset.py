@@ -10,7 +10,8 @@ import numpy as np
 import pandas as pd
 
 from nhanes_config import (
-    ANALYSIS_PATH, CATEGORICAL_FEATURES, CLEAN_PATH, FEATURE_COLUMNS, FIGURES_DIR,
+    ANALYSIS_PATH, CATEGORICAL_FEATURES, CLEAN_PATH, DROPPED_FEATURES, FEATURE_COLUMNS,
+    FIGURES_DIR,
     LEAKAGE_COLUMNS, MERGED_PATH, NUMERIC_FEATURES, RAW_DIR, NHANES_FILES, REPORTS_DIR,
     ROOT, SBP_THRESHOLD, DBP_THRESHOLD, TARGET_COLUMN, MIN_AGE,
 )
@@ -72,9 +73,9 @@ def main() -> None:
     check("survey-weighted prevalence close to NCHS DB511 (47.7%)",
           abs(weighted - 0.477) < 0.01, f"{weighted:.1%}")
 
-    for col, (low, high) in {"Pulse_BPM": (30, 220), "BMI": (10, 100),
-                             "Waist_Circumference_cm": (40, 200),
-                             "Poverty_Income_Ratio": (0, 5)}.items():
+    check("dropped features absent from model file",
+          not set(DROPPED_FEATURES) & set(clean.columns), str(sorted(DROPPED_FEATURES)))
+    for col, (low, high) in {"Pulse_BPM": (30, 220), "BMI": (10, 100)}.items():
         values = clean[col].dropna()
         check(f"{col} within [{low}, {high}]", values.between(low, high).all(),
               f"min {values.min():.1f}, max {values.max():.1f}, missing {clean[col].isna().sum()}")

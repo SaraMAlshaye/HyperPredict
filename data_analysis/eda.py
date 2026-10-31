@@ -20,7 +20,7 @@ from nhanes_config import (
 
 CLASS_NAMES = {0: "No hypertension", 1: "Hypertension"}
 PALETTE = {"No hypertension": "#4C72B0", "Hypertension": "#C44E52"}
-UNITS = {"Age_Years": "years", "BMI": "kg/m²", "Waist_Circumference_cm": "cm",
+UNITS = {"Age_Years": "years", "BMI": "kg/m²",
          "Pulse_BPM": "beats/min", "Poverty_Income_Ratio": "ratio (top-coded at 5)"}
 
 
@@ -57,12 +57,13 @@ def plot_missing(df):
 
 
 def plot_distributions(df):
-    fig, axes = plt.subplots(2, 3, figsize=(14, 8))
+    fig, axes = plt.subplots(2, 2, figsize=(11, 8))
     for ax, col in zip(axes.flat, NUMERIC_FEATURES):
         sns.histplot(data=df, x=col, hue="Class", palette=PALETTE, stat="density",
                      common_norm=False, element="step", bins=40, ax=ax)
         ax.set_xlabel(f"{col} ({UNITS[col]})")
-    axes.flat[-1].axis("off")
+    for ax in list(axes.flat)[len(NUMERIC_FEATURES):]:
+        ax.axis("off")
     fig.suptitle("Numeric feature distributions by class (density, each class normalised)")
     save(fig, "feature_distributions.png")
 

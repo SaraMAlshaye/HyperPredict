@@ -70,20 +70,13 @@
       ],
       "values_set_to_missing": 0
     },
-    "BMXWAIST": {
-      "bounds": [
-        40,
-        200
-      ],
-      "values_set_to_missing": 0
-    },
     "reading_1_DBP_ge_SBP": 0,
     "reading_2_DBP_ge_SBP": 0,
     "reading_3_DBP_ge_SBP": 0
   },
   "nchs_vs_project_label_difference": 3,
   "duplicate_SEQN": 0,
-  "identical_feature_and_target_rows": 0,
+  "identical_feature_and_target_rows": 1,
   "iqr_outliers_retained": {
     "Age_Years": {
       "iqr_low": -9.5,
@@ -99,34 +92,18 @@
       "min": 11.1,
       "max": 68.9
     },
-    "Waist_Circumference_cm": {
-      "iqr_low": 53.9,
-      "iqr_high": 145.1,
-      "n_outside": 69,
-      "min": 59.6,
-      "max": 187.0
-    },
     "Pulse_BPM": {
       "iqr_low": 39.5,
       "iqr_high": 102.17,
       "n_outside": 85,
       "min": 34.0,
       "max": 129.33333333333334
-    },
-    "Poverty_Income_Ratio": {
-      "iqr_low": -3.99,
-      "iqr_high": 10.4,
-      "n_outside": 0,
-      "min": 0.0,
-      "max": 5.0
     }
   },
   "feature_missing_counts": {
     "Age_Years": 0,
     "BMI": 62,
-    "Waist_Circumference_cm": 201,
     "Pulse_BPM": 0,
-    "Poverty_Income_Ratio": 787,
     "Sex": 0,
     "Race_Ethnicity": 0
   },

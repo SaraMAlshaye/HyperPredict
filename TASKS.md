@@ -16,6 +16,9 @@ This is the initial task plan for the NHANES dataset review. Task owners are ide
 | HP-06 | Create initial EDA charts and a short findings note | @SaraMAlshaye | Review | At least target/measurement distributions where valid, missingness summary, limitations |
 | HP-07 | Update README and keep this tracker current | @SaraMAlshaye | Review | Source and dataset status documented; tasks have owners/status |
 | HP-08 | Prepare a brief progress summary for the instructor | All team members | Todo | Explain dataset choice, validation still needed, work completed, and next steps |
+| HP-09 | Train and compare models; select one; connect the app | @SaraMAlshaye | Review | docs/MODEL.md, results/reports/model_evaluation.md, app loads the saved model |
+| HP-10 | Prepare app for Arduino/ESP32 + MAX30102 (software side); remove income input | @SaraMAlshaye | Review | iot/README.md, 57 passing tests; hardware bring-up and pulse compatibility study still open |
+| HP-11 | Remove waist circumference; retrain 3 models (model v3, 5 features) | @SaraMAlshaye | Review | docs/MODEL.md v3 results, 57 passing tests |
 
 ### Pipeline evidence for review (all in docs/DATASET.md)
 

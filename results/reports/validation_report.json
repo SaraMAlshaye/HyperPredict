@@ -1,5 +1,5 @@
 {
-  "passed": 31,
+  "passed": 30,
   "failed": 0,
   "checks": [
     {
@@ -45,7 +45,7 @@
     {
       "check": "clean columns = features + target",
       "passed": true,
-      "detail": "['Age_Years', 'BMI', 'Waist_Circumference_cm', 'Pulse_BPM', 'Poverty_Income_Ratio', 'Sex', 'Race_Ethnicity', 'Hypertension_Status']"
+      "detail": "['Age_Years', 'BMI', 'Pulse_BPM', 'Sex', 'Race_Ethnicity', 'Hypertension_Status']"
     },
     {
       "check": "clean and analysis row counts match",
@@ -113,6 +113,11 @@
       "detail": "47.7%"
     },
     {
+      "check": "dropped features absent from model file",
+      "passed": true,
+      "detail": "['Poverty_Income_Ratio']"
+    },
+    {
       "check": "Pulse_BPM within [30, 220]",
       "passed": true,
       "detail": "min 34.0, max 129.3, missing 0"
@@ -123,19 +128,9 @@
       "detail": "min 11.1, max 68.9, missing 62"
     },
     {
-      "check": "Waist_Circumference_cm within [40, 200]",
-      "passed": true,
-      "detail": "min 59.6, max 187.0, missing 201"
-    },
-    {
-      "check": "Poverty_Income_Ratio within [0, 5]",
-      "passed": true,
-      "detail": "min 0.0, max 5.0, missing 787"
-    },
-    {
       "check": "preprocessor (fit on train only) leaves no NaN",
       "passed": true,
-      "detail": "train (4864, 13), test (1217, 13)"
+      "detail": "train (4864, 11), test (1217, 11)"
     },
     {
       "check": "all EDA figures generated",

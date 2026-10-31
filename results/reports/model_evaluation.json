@@ -1,0 +1,260 @@
+{
+  "generated_utc": "2026-10-30T22:09:39+00:00",
+  "data": {
+    "file": "data/processed/hypertension_clean.csv",
+    "train_rows": 4864,
+    "test_rows": 1217,
+    "test_size": 0.2,
+    "random_state": 42,
+    "cv_folds": 5
+  },
+  "target": {
+    "column": "Hypertension_Status",
+    "labels": {
+      "0": "No hypertension",
+      "1": "Hypertension"
+    },
+    "definition": "1 if mean BP >= 130/80 mmHg or taking prescribed BP medication (NCHS Data Brief 511), else 0"
+  },
+  "features": [
+    "Age_Years",
+    "BMI",
+    "Pulse_BPM",
+    "Sex",
+    "Race_Ethnicity"
+  ],
+  "excluded_leakage_columns": [
+    "BPQ020",
+    "BPQ030",
+    "BPQ150",
+    "BPXODI1",
+    "BPXODI2",
+    "BPXODI3",
+    "BPXOSY1",
+    "BPXOSY2",
+    "BPXOSY3",
+    "BP_Elevated",
+    "Diastolic_BP",
+    "Mean_Diastolic_BP",
+    "Mean_Systolic_BP",
+    "N_BP_Readings",
+    "SEQN",
+    "Systolic_BP",
+    "Taking_BP_Medication",
+    "Told_High_BP",
+    "Told_High_BP_2Plus"
+  ],
+  "selection_rule": "Highest mean CV ROC-AUC on training data; models within 0.01 are treated as tied and the simplest is chosen.",
+  "decision_threshold": 0.5,
+  "models": {
+    "Logistic Regression": {
+      "best_params": {
+        "C": 0.1
+      },
+      "cv": {
+        "roc_auc_mean": 0.7876351477281645,
+        "roc_auc_std": 0.016774349441975433,
+        "recall_mean": 0.7558848691796669,
+        "recall_std": 0.017676273845514043,
+        "precision_mean": 0.7375496718435638,
+        "precision_std": 0.010533907205975964,
+        "f1_mean": 0.746467286169544,
+        "f1_std": 0.010300299557450349,
+        "accuracy_mean": 0.7263575383079779,
+        "accuracy_std": 0.010123479967289814
+      },
+      "test": {
+        "accuracy": 0.7206244864420707,
+        "precision": 0.7330316742081447,
+        "recall": 0.74884437596302,
+        "specificity": 0.6883802816901409,
+        "f1": 0.7408536585365854,
+        "roc_auc": 0.7913881594652662,
+        "confusion_matrix": {
+          "tn": 391,
+          "fp": 177,
+          "fn": 163,
+          "tp": 486
+        },
+        "classification_report": {
+          "No hypertension": {
+            "precision": 0.7057761732851986,
+            "recall": 0.6883802816901409,
+            "f1-score": 0.696969696969697,
+            "support": 568.0
+          },
+          "Hypertension": {
+            "precision": 0.7330316742081447,
+            "recall": 0.74884437596302,
+            "f1-score": 0.7408536585365854,
+            "support": 649.0
+          },
+          "accuracy": 0.7206244864420707,
+          "macro avg": {
+            "precision": 0.7194039237466716,
+            "recall": 0.7186123288265804,
+            "f1-score": 0.7189116777531412,
+            "support": 1217.0
+          },
+          "weighted avg": {
+            "precision": 0.7203109474010507,
+            "recall": 0.7206244864420707,
+            "f1-score": 0.7203720725300179,
+            "support": 1217.0
+          }
+        }
+      }
+    },
+    "Decision Tree": {
+      "best_params": {
+        "max_depth": 6,
+        "min_samples_leaf": 20
+      },
+      "cv": {
+        "roc_auc_mean": 0.7718080951868515,
+        "roc_auc_std": 0.010701946561259357,
+        "recall_mean": 0.7886595100467934,
+        "recall_std": 0.025217833863770404,
+        "precision_mean": 0.7172238008239165,
+        "precision_std": 0.010951474276140278,
+        "f1_mean": 0.7510088109338513,
+        "f1_std": 0.012473476677477878,
+        "accuracy_mean": 0.7214211699423531,
+        "accuracy_std": 0.011808561852614034
+      },
+      "test": {
+        "accuracy": 0.7091207888249794,
+        "precision": 0.7258805513016845,
+        "recall": 0.7303543913713405,
+        "specificity": 0.6848591549295775,
+        "f1": 0.728110599078341,
+        "roc_auc": 0.7636057097593263,
+        "confusion_matrix": {
+          "tn": 389,
+          "fp": 179,
+          "fn": 175,
+          "tp": 474
+        },
+        "classification_report": {
+          "No hypertension": {
+            "precision": 0.6897163120567376,
+            "recall": 0.6848591549295775,
+            "f1-score": 0.6872791519434629,
+            "support": 568.0
+          },
+          "Hypertension": {
+            "precision": 0.7258805513016845,
+            "recall": 0.7303543913713405,
+            "f1-score": 0.728110599078341,
+            "support": 649.0
+          },
+          "accuracy": 0.7091207888249794,
+          "macro avg": {
+            "precision": 0.707798431679211,
+            "recall": 0.707606773150459,
+            "f1-score": 0.7076948755109019,
+            "support": 1217.0
+          },
+          "weighted avg": {
+            "precision": 0.7090019252613149,
+            "recall": 0.7091207888249794,
+            "f1-score": 0.709053687021964,
+            "support": 1217.0
+          }
+        }
+      }
+    },
+    "Random Forest": {
+      "best_params": {
+        "max_depth": 10,
+        "min_samples_leaf": 20
+      },
+      "cv": {
+        "roc_auc_mean": 0.7897359020337082,
+        "roc_auc_std": 0.014252233288401773,
+        "recall_mean": 0.7886632297036921,
+        "recall_std": 0.021739151832716214,
+        "precision_mean": 0.7285685039167389,
+        "precision_std": 0.010050270439904238,
+        "f1_mean": 0.7573048706372513,
+        "f1_std": 0.013108092909985963,
+        "accuracy_mean": 0.7306734506574635,
+        "accuracy_std": 0.012805682919899121
+      },
+      "test": {
+        "accuracy": 0.7247329498767461,
+        "precision": 0.7262247838616714,
+        "recall": 0.7765793528505393,
+        "specificity": 0.6654929577464789,
+        "f1": 0.7505584512285927,
+        "roc_auc": 0.7891013259836369,
+        "confusion_matrix": {
+          "tn": 378,
+          "fp": 190,
+          "fn": 145,
+          "tp": 504
+        },
+        "classification_report": {
+          "No hypertension": {
+            "precision": 0.722753346080306,
+            "recall": 0.6654929577464789,
+            "f1-score": 0.692942254812099,
+            "support": 568.0
+          },
+          "Hypertension": {
+            "precision": 0.7262247838616714,
+            "recall": 0.7765793528505393,
+            "f1-score": 0.7505584512285927,
+            "support": 649.0
+          },
+          "accuracy": 0.7247329498767461,
+          "macro avg": {
+            "precision": 0.7244890649709887,
+            "recall": 0.7210361552985091,
+            "f1-score": 0.7217503530203458,
+            "support": 1217.0
+          },
+          "weighted avg": {
+            "precision": 0.7246045894000317,
+            "recall": 0.7247329498767461,
+            "f1-score": 0.723667736713746,
+            "support": 1217.0
+          }
+        }
+      }
+    }
+  },
+  "unavailable_models": {},
+  "selected_model": "Logistic Regression",
+  "selection_rationale": "Random Forest had the highest mean CV ROC-AUC (0.790), but Logistic Regression was within 0.01 (0.788) and is simpler, so it was preferred. Models within the margin: ['Logistic Regression', 'Random Forest'].",
+  "adequacy": "Adequate for an educational prototype (test ROC-AUC 0.791 >= 0.7), but moderate: it is a screening-style risk estimate from demographics and body size, not a diagnosis.",
+  "feature_importance": {
+    "Age_Years": {
+      "mean": 0.2112,
+      "std": 0.0114
+    },
+    "BMI": {
+      "mean": 0.0536,
+      "std": 0.0062
+    },
+    "Pulse_BPM": {
+      "mean": 0.0154,
+      "std": 0.0035
+    },
+    "Race_Ethnicity": {
+      "mean": 0.0088,
+      "std": 0.0019
+    },
+    "Sex": {
+      "mean": 0.0084,
+      "std": 0.0027
+    }
+  },
+  "versions": {
+    "python": "3.10.11",
+    "scikit-learn": "1.7.2",
+    "pandas": "2.3.3",
+    "numpy": "1.26.4",
+    "joblib": "1.5.3"
+  }
+}

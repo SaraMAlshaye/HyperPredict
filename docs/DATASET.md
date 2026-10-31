@@ -20,7 +20,7 @@ This file records how the model-ready dataset is built, what every decision was,
 | DEMO_L | [DEMO_L.htm](https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2021/DataFiles/DEMO_L.htm) | 11,933 | SEQN, RIDSTATR (exam status), RIAGENDR (sex), RIDAGEYR (age, 80+ top-coded as 80), RIDRETH3 (race/Hispanic origin), RIDEXPRG (pregnancy), INDFMPIR (income-to-poverty ratio, top-coded at 5), WTMEC2YR, SDMVPSU, SDMVSTRA (survey design) |
 | BPXO_L | [BPXO_L.htm](https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2021/DataFiles/BPXO_L.htm) | 7,801 | BPXOSY1–3 / BPXODI1–3 (systolic/diastolic, mmHg), BPXOPLS1–3 (pulse, beats/min). Omron HEM-907XL oscillometric cuff, 3 readings 60 s apart after 5 min seated rest |
 | BPQ_L | [BPQ_L.htm](https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2021/DataFiles/BPQ_L.htm) | 8,501 | BPQ020 (ever told high BP), BPQ030 (told on 2+ visits), BPQ150 (now taking prescribed BP medication) |
-| BMX_L | [BMX_L.htm](https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2021/DataFiles/BMX_L.htm) | 8,860 | BMXBMI (kg/m²), BMXWAIST (cm), BMXHT (cm), BMXWT (kg) |
+| BMX_L | [BMX_L.htm](https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2021/DataFiles/BMX_L.htm) | 8,860 | BMXBMI (kg/m²), BMXHT (cm), BMXWT (kg) |
 
 Download URLs follow the pattern `https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2021/DataFiles/<FILE>.xpt` (SAS transport format). All four were downloaded and their row counts match the official codebooks.
 
@@ -99,24 +99,21 @@ The 1-percentage-point tolerance check passes in `validate_dataset.py`.
 | Diastolic BP | 30–150 mmHg | 1 (a reading of 24) |
 | Pulse | 30–220 beats/min | 0 |
 | BMI | 10–100 kg/m² | 0 |
-| Waist | 40–200 cm | 0 |
 
 A reading pair where diastolic ≥ systolic would be invalid; none occurred.
 
 **Duplicates:** 0 duplicate SEQN values, and 0 fully identical rows.
 
-**Outliers:** the 1.5×IQR rule flags 167 BMI, 69 waist and 85 pulse values. All of them are physiologically possible, so they are **retained**. Example: the lowest adult BMI is 11.1 (27.9 kg, 158 cm). Height and weight are consistent with that value, so it is a real, extreme measurement.
+**Outliers:** the 1.5×IQR rule flags 167 BMI and 85 pulse values. All of them are physiologically possible, so they are **retained**. Example: the lowest adult BMI is 11.1 (27.9 kg, 158 cm). Height and weight are consistent with that value, so it is a real, extreme measurement.
 
 **Missing feature values:**
 
 | Feature | Missing | % |
 |---|---|---|
-| Poverty_Income_Ratio | 787 | 12.9% |
-| Waist_Circumference_cm | 201 | 3.3% |
 | BMI | 62 | 1.0% |
 | Age, Sex, Race_Ethnicity, Pulse | 0 | 0% |
 
-Rows are **not** dropped for missing features. Missing values are imputed inside the model pipeline (median for numbers, most frequent value for categories), fitted on the training split only (`machine_learning/features.py`).
+Rows are **not** dropped for missing features. Missing values are imputed inside the model pipeline (median for numbers, most frequent value for categories), fitted on the training split only (`machine_learning/features.py`). Model training and results are documented in [MODEL.md](MODEL.md).
 
 **Types and encoding:**
 - Sex and race/ethnicity are stored as readable text labels and one-hot encoded inside the pipeline.
@@ -124,7 +121,7 @@ Rows are **not** dropped for missing features. Missing values are imputed inside
 
 ## 5. Final features and target leakage
 
-**Model-ready file:** `data/processed/hypertension_clean.csv` (6,081 rows × 8 columns).
+**Model-ready file:** `data/processed/hypertension_clean.csv` (6,081 rows × 6 columns: 5 features + target).
 
 | Feature | Source | Unit |
 |---|---|---|
@@ -132,10 +129,12 @@ Rows are **not** dropped for missing features. Missing values are imputed inside
 | Sex | RIAGENDR | Male / Female |
 | Race_Ethnicity | RIDRETH3 | 6 categories |
 | BMI | BMXBMI | kg/m² |
-| Waist_Circumference_cm | BMXWAIST | cm |
 | Pulse_BPM | mean of valid BPXOPLS1–3 | beats/min |
-| Poverty_Income_Ratio | INDFMPIR | ratio, 0–5 |
 | **Hypertension_Status** (target) | derived | 0 / 1 |
+
+Waist circumference was a feature in model versions 1–2. It was removed in version 3 at the project team's request, and `BMXWAIST` is no longer loaded from BMX_L.
+
+`Poverty_Income_Ratio` (INDFMPIR) was a feature in model version 1. It was **removed** because the app should not ask for family income and removing it changed cross-validated ROC-AUC by at most 0.0014 (see [MODEL.md](MODEL.md)). It is still kept in `hypertension_analysis.csv` for auditing; its missing count was 787 (12.9%).
 
 **Excluded from the predictors, with reasons:**
 
@@ -164,9 +163,8 @@ Figures are in `results/figures/`; numbers are in `results/reports/eda_summary.m
 - Prevalence rises from 16% (ages 18–29) to 75% (ages 70+).
 
 **Body size matters**
-- Waist circumference: ρ = 0.32.
 - BMI: ρ = 0.26.
-- Median waist is 104 cm in the hypertension class vs 93 cm otherwise.
+- Median BMI is 29.9 in the hypertension class vs 26.6 otherwise.
 
 **Pulse is almost uninformative**
 - ρ = 0.04.
@@ -186,9 +184,8 @@ Figures are in `results/figures/`; numbers are in `results/reports/eda_summary.m
 2. **Pulse is a cuff pulse.** It was measured by the BP device after 5 minutes of rest; a MAX30102 fingertip reading may differ (sensor accuracy, motion, not resting). Pulse is also a weak predictor and is partly affected by medication.
 3. **The target is a one-visit measurement plus self-report.** A clinical diagnosis needs repeated measurements on separate days, and medication use is self-reported.
 4. **Survey weights are not used in modeling.** The model learns from the sample, which over-represents some groups. Weighted prevalence (47.7%) differs from sample prevalence (53.3%).
-5. **Top-coding and missing values.** Age is top-coded at 80 and income ratio at 5. Income ratio is missing for 13% of people (imputed in the pipeline).
+5. **Top-coding.** Age is top-coded at 80.
 6. **Not decided yet (team):**
-   - Whether to keep `Poverty_Income_Ratio`, since the app would have to ask users for it.
    - Whether to use survey weights as `sample_weight` during training.
    - Whether to test the older 140/90 definition as a sensitivity analysis.
 

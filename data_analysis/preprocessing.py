@@ -28,7 +28,7 @@ import pandas as pd
 from nhanes_config import (
     ANALYSIS_PATH, BMI_RANGE, CLEAN_PATH, DBP_RANGE, DBP_THRESHOLD, FEATURE_COLUMNS,
     MERGED_PATH, MIN_AGE, NUMERIC_FEATURES, PULSE_RANGE, RACE_LABELS, REPORTS_DIR,
-    SBP_RANGE, SBP_THRESHOLD, SEX_LABELS, TARGET_COLUMN, WAIST_RANGE,
+    SBP_RANGE, SBP_THRESHOLD, SEX_LABELS, TARGET_COLUMN,
 )
 
 SBP_COLS = ["BPXOSY1", "BPXOSY2", "BPXOSY3"]
@@ -90,7 +90,6 @@ def main() -> None:
     null_out_of_range(df, DBP_COLS, DBP_RANGE, rules)
     null_out_of_range(df, PULSE_COLS, PULSE_RANGE, rules)
     null_out_of_range(df, ["BMXBMI"], BMI_RANGE, rules)
-    null_out_of_range(df, ["BMXWAIST"], WAIST_RANGE, rules)
     for i in range(3):  # a reading pair where DBP >= SBP is invalid
         bad = df[DBP_COLS[i]] >= df[SBP_COLS[i]]
         rules[f"reading_{i + 1}_DBP_ge_SBP"] = int(bad.sum())
@@ -125,7 +124,6 @@ def main() -> None:
     df["Sex"] = df["RIAGENDR"].map(SEX_LABELS)
     df["Race_Ethnicity"] = df["RIDRETH3"].map(RACE_LABELS)
     df["BMI"] = df["BMXBMI"]
-    df["Waist_Circumference_cm"] = df["BMXWAIST"]
     df["Height_cm"] = df["BMXHT"]
     df["Weight_kg"] = df["BMXWT"]
     df["Pulse_BPM"] = df[PULSE_COLS].mean(axis=1)  # mean of valid cuff pulse readings
@@ -166,7 +164,8 @@ def main() -> None:
     analysis_cols = (["SEQN", "WTMEC2YR", "SDMVPSU", "SDMVSTRA"] + SBP_COLS + DBP_COLS +
                      PULSE_COLS + ["Mean_Systolic_BP", "Mean_Diastolic_BP", "N_BP_Readings",
                                    "BP_Elevated", "Told_High_BP", "Told_High_BP_2Plus",
-                                   "Taking_BP_Medication", "Height_cm", "Weight_kg"] +
+                                   "Taking_BP_Medication", "Height_cm", "Weight_kg",
+                                   "Poverty_Income_Ratio"] +  # audit only, not a feature
                      FEATURE_COLUMNS + [TARGET_COLUMN])
     ANALYSIS_PATH.parent.mkdir(parents=True, exist_ok=True)
     df[analysis_cols].to_csv(ANALYSIS_PATH, index=False)
